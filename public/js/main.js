@@ -23266,6 +23266,10 @@ module.exports = Details;
 var React = require('react');
 var PokemonCard = require('./PokemonCard.jsx');
 
+var marginTop = {
+  marginTop: 20
+};
+
 var Main = React.createClass({
   displayName: 'Main',
 
@@ -23275,7 +23279,7 @@ var Main = React.createClass({
       { className: 'container' },
       React.createElement(
         'div',
-        { className: 'row' },
+        { className: 'row', style: marginTop },
         React.createElement(PokemonCard, null)
       )
     );
@@ -23300,6 +23304,12 @@ var brandText = {
   color: "white",
   fontSize: 24
 };
+var logo = {
+  marginLeft: 20,
+  marginBottom: 5,
+  height: 25,
+  width: "auto"
+};
 
 var Navbar = React.createClass({
   displayName: 'Navbar',
@@ -23319,7 +23329,7 @@ var Navbar = React.createClass({
             { style: brandText },
             'Pokédex'
           ),
-          React.createElement('i', { className: 'fa fa-camera' })
+          React.createElement('img', { src: 'img/ball.png', alt: 'pokemon picture', style: logo })
         ),
         React.createElement(
           'div',
@@ -23344,6 +23354,9 @@ var thumbStyle = {
 var cardStyle = {
   backgroundColor: "white"
 };
+var pokemonIdText = {
+  marginTop: 10
+};
 
 var PokemonCard = React.createClass({
   displayName: "PokemonCard",
@@ -23351,48 +23364,60 @@ var PokemonCard = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "pokemon-card", style: cardStyle, className: "col-md-3" },
+      { id: "pokemon-card", className: "col-sm-3" },
       React.createElement(
         "div",
-        { className: "row" },
+        { className: "panel panel-default" },
         React.createElement(
           "div",
-          { className: "col-xs-12" },
-          React.createElement("img", { src: "img/jag.jpeg", style: thumbStyle })
-        )
-      ),
-      React.createElement(
-        "div",
-        { className: "row" },
-        React.createElement(
-          "div",
-          { className: "col-xs-6" },
+          { className: "row" },
           React.createElement(
-            "h4",
-            null,
-            "Pickachu"
+            "div",
+            { className: "col-xs-12" },
+            React.createElement("img", { src: "img/jag.jpeg", style: thumbStyle })
           )
         ),
         React.createElement(
           "div",
-          { className: "col-xs-6" },
+          { className: "panel-body" },
           React.createElement(
-            "h4",
-            null,
-            "#145"
-          )
-        )
-      ),
-      React.createElement(
-        "div",
-        { className: "row" },
-        React.createElement(
-          "div",
-          { className: "col-xs-6" },
+            "div",
+            { className: "row" },
+            React.createElement(
+              "div",
+              { className: "col-xs-8" },
+              React.createElement(
+                "h4",
+                null,
+                "Pickachu"
+              )
+            ),
+            React.createElement(
+              "div",
+              { className: "col-xs-4" },
+              React.createElement(
+                "h4",
+                { style: pokemonIdText },
+                React.createElement(
+                  "em",
+                  null,
+                  "#145"
+                )
+              )
+            )
+          ),
           React.createElement(
-            "h6",
-            null,
-            "Water"
+            "div",
+            { className: "row" },
+            React.createElement(
+              "div",
+              { className: "col-xs-6" },
+              React.createElement(
+                "p",
+                null,
+                "Water"
+              )
+            )
           )
         )
       )

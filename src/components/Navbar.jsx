@@ -13,6 +13,12 @@ var brandText = {
   color: "white",
   fontSize: 24
 };
+var logo = {
+  marginLeft: 20,
+  marginBottom: 5,
+  height: 25,
+  width: "auto"
+}
 
 var Navbar = React.createClass({
   render: function(){
@@ -21,7 +27,7 @@ var Navbar = React.createClass({
         <div className="row" style={navPadding}>
           <div className="col-md-8">
             <span style={brandText}>Pokédex</span>
-            <i className="fa fa-camera"></i>
+            <img src="img/ball.png" alt="pokemon picture" style={logo} />
           </div>
           <div className="col-md-4">
             <SearchBox />
