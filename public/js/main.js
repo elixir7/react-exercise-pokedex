@@ -23264,26 +23264,19 @@ module.exports = Details;
 },{"react":203}],209:[function(require,module,exports){
 //Main page where all pokemons are shown, there is a drop down, surprise me button
 var React = require('react');
+var PokemonCard = require('./PokemonCard.jsx');
 
 var Main = React.createClass({
-  displayName: "Main",
+  displayName: 'Main',
 
   render: function () {
     return React.createElement(
-      "div",
-      { className: "container" },
+      'div',
+      { className: 'container' },
       React.createElement(
-        "div",
-        { className: "row" },
-        React.createElement(
-          "div",
-          { className: "col-md-3" },
-          React.createElement(
-            "p",
-            null,
-            "Main Page"
-          )
-        )
+        'div',
+        { className: 'row' },
+        React.createElement(PokemonCard, null)
       )
     );
   }
@@ -23291,10 +23284,22 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"react":203}],210:[function(require,module,exports){
+},{"./PokemonCard.jsx":211,"react":203}],210:[function(require,module,exports){
 //This is the navigation bar for all sites
 var React = require('react');
 var SearchBox = require('./SearchBox.jsx');
+
+var navStyle = {
+  backgroundColor: "tomato"
+};
+var navPadding = {
+  marginTop: 20,
+  marginBottom: 20
+};
+var brandText = {
+  color: "white",
+  fontSize: 24
+};
 
 var Navbar = React.createClass({
   displayName: 'Navbar',
@@ -23302,18 +23307,24 @@ var Navbar = React.createClass({
   render: function () {
     return React.createElement(
       'div',
-      { className: 'container-fluid' },
+      { className: 'container-fluid', style: navStyle },
       React.createElement(
         'div',
-        { className: 'row' },
+        { className: 'row', style: navPadding },
         React.createElement(
           'div',
-          { className: 'col-sm-12' },
+          { className: 'col-md-8' },
           React.createElement(
-            'h1',
-            null,
-            'Navbar'
-          )
+            'span',
+            { style: brandText },
+            'Pokédex'
+          ),
+          React.createElement('i', { className: 'fa fa-camera' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-md-4' },
+          React.createElement(SearchBox, null)
         )
       )
     );
@@ -23322,29 +23333,116 @@ var Navbar = React.createClass({
 
 module.exports = Navbar;
 
-},{"./SearchBox.jsx":211,"react":203}],211:[function(require,module,exports){
-//Searchbox for searching pokemons by name or number
+},{"./SearchBox.jsx":212,"react":203}],211:[function(require,module,exports){
+//This a card that shows a image, name, pokedex_number, and type.
 var React = require('react');
 
-var SearchBox = React.createClass({
-  displayName: 'SearchBox',
+var thumbStyle = {
+  width: "100%",
+  height: "auto"
+};
+var cardStyle = {
+  backgroundColor: "white"
+};
+
+var PokemonCard = React.createClass({
+  displayName: "PokemonCard",
 
   render: function () {
     return React.createElement(
-      'h3',
-      null,
-      'SearcBox'
+      "div",
+      { id: "pokemon-card", style: cardStyle, className: "col-md-3" },
+      React.createElement(
+        "div",
+        { className: "row" },
+        React.createElement(
+          "div",
+          { className: "col-xs-12" },
+          React.createElement("img", { src: "img/jag.jpeg", style: thumbStyle })
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "row" },
+        React.createElement(
+          "div",
+          { className: "col-xs-6" },
+          React.createElement(
+            "h4",
+            null,
+            "Pickachu"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "col-xs-6" },
+          React.createElement(
+            "h4",
+            null,
+            "#145"
+          )
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "row" },
+        React.createElement(
+          "div",
+          { className: "col-xs-6" },
+          React.createElement(
+            "h6",
+            null,
+            "Water"
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = PokemonCard;
+
+},{"react":203}],212:[function(require,module,exports){
+//Searchbox for searching pokemons by name or number
+var React = require('react');
+
+var inputStyle = {
+  width: "100%",
+  border: "none"
+};
+
+var SearchBox = React.createClass({
+  displayName: "SearchBox",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "row" },
+      React.createElement(
+        "div",
+        { className: "col-xs-9" },
+        React.createElement("input", { placeholder: "Search...", style: inputStyle })
+      ),
+      React.createElement(
+        "div",
+        { className: "col-xs-3" },
+        React.createElement(
+          "button",
+          { onClick: this.onClick },
+          "Go!"
+        )
+      )
     );
   }
 });
 
 module.exports = SearchBox;
 
-},{"react":203}],212:[function(require,module,exports){
+},{"react":203}],213:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(Routes, document.getElementById('main'));
 
-},{"./Routes.jsx":206,"react":203,"react-dom":50}]},{},[212]);
+},{"./Routes.jsx":206,"react":203,"react-dom":50}]},{},[213]);
