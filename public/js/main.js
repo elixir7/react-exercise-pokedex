@@ -23212,7 +23212,7 @@ var Routes = React.createElement(
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":207,"./components/Details.jsx":208,"./components/Main.jsx":209,"history/lib/createHashHistory":37,"react":203,"react-router":70}],207:[function(require,module,exports){
+},{"./components/Base.jsx":207,"./components/Details.jsx":209,"./components/Main.jsx":210,"history/lib/createHashHistory":37,"react":203,"react-router":70}],207:[function(require,module,exports){
 var React = require('react');
 var Navbar = require('./Navbar.jsx');
 
@@ -23231,27 +23231,106 @@ var Base = React.createClass({
 
 module.exports = Base;
 
-},{"./Navbar.jsx":210,"react":203}],208:[function(require,module,exports){
-//Details page for a unique pokekmon, name, desc, height, type, category, Weaknesses
+},{"./Navbar.jsx":211,"react":203}],208:[function(require,module,exports){
+//This is the card for the detail page showing everything exept image, name and descrption
 var React = require('react');
 
-var Details = React.createClass({
-  displayName: "Details",
+var DetailCard = React.createClass({
+  displayName: "DetailCard",
 
   render: function () {
     return React.createElement(
       "div",
-      { className: "container" },
+      { className: "row" },
       React.createElement(
         "div",
-        { className: "row" },
+        { className: "panel panel-default" },
         React.createElement(
           "div",
-          { className: "col-md-3" },
+          { className: "panel-body" },
           React.createElement(
-            "p",
-            null,
-            "Details Page"
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Weight"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "6.9kg"
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Height"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "0.7m"
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Sex"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "Male / Female"
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Category"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "Seed"
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Weight"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "6.9kg"
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-sm-4" },
+            React.createElement(
+              "h4",
+              null,
+              "Swag"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "Yolo v.2"
+            )
           )
         )
       )
@@ -23259,31 +23338,101 @@ var Details = React.createClass({
   }
 });
 
-module.exports = Details;
+module.exports = DetailCard;
 
 },{"react":203}],209:[function(require,module,exports){
-//Main page where all pokemons are shown, there is a drop down, surprise me button
+//Details page for a unique pokekmon, name, desc, height, type, category, Weaknesses
 var React = require('react');
+var DetailCard = require('./DetailCard.jsx');
 
-var Main = React.createClass({
-  displayName: "Main",
+var pokemonPicture = {
+  width: "100%",
+  height: "auto"
+};
+var marginTop = {
+  marginTop: 20
+};
+var pictureBackground = {
+  backgroundImage: "linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%)"
+};
+var container = {
+  padding: 15
+};
+
+var Details = React.createClass({
+  displayName: 'Details',
 
   render: function () {
     return React.createElement(
-      "div",
-      { className: "container" },
+      'div',
+      { className: 'container' },
       React.createElement(
-        "div",
-        { className: "row" },
+        'div',
+        { className: 'row', style: marginTop },
         React.createElement(
-          "div",
-          { className: "col-md-3" },
+          'div',
+          { className: 'panel panel-default' },
           React.createElement(
-            "p",
-            null,
-            "Main Page"
+            'div',
+            { className: 'row' },
+            React.createElement(
+              'div',
+              { className: 'col-sm-4', style: pictureBackground },
+              React.createElement('img', { src: 'img/bulb.png', alt: 'picture', style: pokemonPicture })
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-sm-8' },
+              React.createElement(
+                'div',
+                { style: container },
+                React.createElement(
+                  'h1',
+                  null,
+                  'Bulbasuar ',
+                  React.createElement(
+                    'em',
+                    null,
+                    '#001'
+                  )
+                ),
+                React.createElement(
+                  'p',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique scelerisque lacinia. Aenean vel posuere felis. Pellentesque maximus accumsan tellus vitae tincidunt. Etiam lectus nunc, consequat eget nisl eget, maximus accumsan ex. Curabitur velit risus, condimentum ac nibh auctor, aliquam euismod sapien.'
+                )
+              )
+            )
           )
         )
+      ),
+      React.createElement(DetailCard, null)
+    );
+  }
+});
+
+module.exports = Details;
+
+},{"./DetailCard.jsx":208,"react":203}],210:[function(require,module,exports){
+//Main page where all pokemons are shown, there is a drop down, surprise me button
+var React = require('react');
+var PokemonCard = require('./PokemonCard.jsx');
+
+var marginTop = {
+  marginTop: 20
+};
+
+var Main = React.createClass({
+  displayName: 'Main',
+
+  render: function () {
+    return React.createElement(
+      'div',
+      { className: 'container' },
+      React.createElement(
+        'div',
+        { className: 'row', style: marginTop },
+        React.createElement(PokemonCard, null)
       )
     );
   }
@@ -23291,10 +23440,28 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"react":203}],210:[function(require,module,exports){
+},{"./PokemonCard.jsx":212,"react":203}],211:[function(require,module,exports){
 //This is the navigation bar for all sites
 var React = require('react');
 var SearchBox = require('./SearchBox.jsx');
+
+var navStyle = {
+  backgroundColor: "tomato"
+};
+var navPadding = {
+  marginTop: 20,
+  marginBottom: 20
+};
+var brandText = {
+  color: "white",
+  fontSize: 24
+};
+var logo = {
+  marginLeft: 20,
+  marginBottom: 5,
+  height: 25,
+  width: "auto"
+};
 
 var Navbar = React.createClass({
   displayName: 'Navbar',
@@ -23302,18 +23469,24 @@ var Navbar = React.createClass({
   render: function () {
     return React.createElement(
       'div',
-      { className: 'container-fluid' },
+      { className: 'container-fluid', style: navStyle },
       React.createElement(
         'div',
-        { className: 'row' },
+        { className: 'row', style: navPadding },
         React.createElement(
           'div',
-          { className: 'col-sm-12' },
+          { className: 'col-md-8' },
           React.createElement(
-            'h1',
-            null,
-            'Navbar'
-          )
+            'span',
+            { style: brandText },
+            'Pokédex'
+          ),
+          React.createElement('img', { src: 'img/ball.png', alt: 'pokemon picture', style: logo })
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-md-4' },
+          React.createElement(SearchBox, null)
         )
       )
     );
@@ -23322,29 +23495,140 @@ var Navbar = React.createClass({
 
 module.exports = Navbar;
 
-},{"./SearchBox.jsx":211,"react":203}],211:[function(require,module,exports){
-//Searchbox for searching pokemons by name or number
+},{"./SearchBox.jsx":213,"react":203}],212:[function(require,module,exports){
+//This a card that shows a image, name, pokedex_number, and type.
 var React = require('react');
+var Link = require('react-router').Link;
 
-var SearchBox = React.createClass({
-  displayName: 'SearchBox',
+var thumbStyle = {
+  width: "100%",
+  height: "auto"
+};
+var cardStyle = {
+  backgroundColor: "white"
+};
+var pokemonIdText = {
+  marginTop: 10
+};
+
+var PokemonCard = React.createClass({
+  displayName: 'PokemonCard',
 
   render: function () {
     return React.createElement(
-      'h3',
-      null,
-      'SearcBox'
+      Link,
+      { to: `/details` },
+      React.createElement(
+        'div',
+        { id: 'pokemon-card', className: 'col-sm-3' },
+        React.createElement(
+          'div',
+          { className: 'panel panel-default' },
+          React.createElement(
+            'div',
+            { className: 'panel-heading' },
+            React.createElement(
+              'div',
+              { className: 'row' },
+              React.createElement(
+                'div',
+                { className: 'col-xs-12' },
+                React.createElement('img', { src: 'img/bulb.png', style: thumbStyle })
+              )
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'panel-body' },
+            React.createElement(
+              'div',
+              { className: 'row' },
+              React.createElement(
+                'div',
+                { className: 'col-xs-8' },
+                React.createElement(
+                  'h4',
+                  null,
+                  'Pickachu'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-xs-4' },
+                React.createElement(
+                  'h4',
+                  { style: pokemonIdText },
+                  React.createElement(
+                    'em',
+                    null,
+                    '#145'
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'row' },
+              React.createElement(
+                'div',
+                { className: 'col-xs-6' },
+                React.createElement(
+                  'p',
+                  null,
+                  'Water'
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = PokemonCard;
+
+},{"react":203,"react-router":70}],213:[function(require,module,exports){
+//Searchbox for searching pokemons by name or number
+var React = require('react');
+
+var inputStyle = {
+  width: "100%",
+  border: "none"
+};
+
+var SearchBox = React.createClass({
+  displayName: "SearchBox",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "row" },
+      React.createElement(
+        "div",
+        { className: "col-xs-9" },
+        React.createElement("input", { placeholder: "Search...", style: inputStyle })
+      ),
+      React.createElement(
+        "div",
+        { className: "col-xs-3" },
+        React.createElement(
+          "button",
+          { onClick: this.onClick },
+          "Go!"
+        )
+      )
     );
   }
 });
 
 module.exports = SearchBox;
 
-},{"react":203}],212:[function(require,module,exports){
+},{"react":203}],214:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(Routes, document.getElementById('main'));
 
-},{"./Routes.jsx":206,"react":203,"react-dom":50}]},{},[212]);
+},{"./Routes.jsx":206,"react":203,"react-dom":50}]},{},[214]);
