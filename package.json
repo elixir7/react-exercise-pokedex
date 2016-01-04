@@ -30,5 +30,9 @@
     "reflux": "^0.3.0",
     "watchify": "^3.6.1",
     "whatwg-fetch": "^0.10.1"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.13.1"
   }
 }
