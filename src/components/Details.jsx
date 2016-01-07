@@ -1,6 +1,7 @@
 //Details page for a unique pokekmon, name, desc, height, type, category, Weaknesses
 var React = require('react');
 var DetailCard = require('./DetailCard.jsx');
+var HTTP = require('../services/httpserver');
 
 var pokemonPicture = {
   width: "100%",
@@ -17,6 +18,79 @@ var container = {
 };
 
 var Details = React.createClass({
+  getInitialState: function(){
+    return ({
+      pId: "",
+      pokemon: [],
+      type: "",
+      evolution: "",
+      spriteLink: "",
+      sprite: [],
+      imageUrl: "",
+      evolutionUrl: ""
+    });
+  },
+  componentDidMount: function(){
+    this.loadPokemon(this.props.params.pokemonId);
+  },
+  componentWillReceiveProps: function(nextProps){
+    this.loadPokemon(nextProps.params.pokemonId);
+  },
+  loadPokemon: function(number){
+    console.log("number: " + number);
+    HTTP.get("/api/v1/pokemon/" + number).then(function(jsonData){
+      console.log("Setting Specific Pokemon Data");
+      this.setState({pokemon: jsonData});
+      console.log(this.state.pokemon);
+      var evolution;
+      if(this.state.pokemon.evolutions[0]){
+        evolution = this.state.pokemon.evolutions[0];
+      } else{
+        evolution = "No evolution";
+      }
+
+      this.setState(
+        {
+          type: this.state.pokemon.types[0].name,
+          evolution: evolution,
+          spriteLink: this.state.pokemon.sprites[0].resource_uri
+        }
+      );
+      this.loadSprite(this.state.spriteLink);
+      this.evolution(this.state.evolution.resource_uri.substring(16));
+    }.bind(this));
+  },
+  loadSprite: function(url){
+    HTTP.get(url).then(function(jsonData){
+      console.log("Setting Sprite Data");
+      this.setState({sprite: jsonData,});
+      this.loadImage(this.state.sprite.image);
+    }.bind(this));
+  },
+  loadImage: function(imageUrl){
+    this.setState({imageUrl: "http://pokeapi.co" + imageUrl});
+  },
+  evolution: function(number){
+    var pokemonNumber;
+    if(number.length == 2){
+      pokemonNumber = number.substring(0,1);
+      console.log("2 characters: " + pokemonNumber);
+    } else if(number.length == 3){
+      pokemonNumber = number.substring(0,2);
+      console.log("3 characters: " + pokemonNumber);
+    } else if(number.length == 4){
+      pokemonNumber = number.substring(0,3);
+      console.log("4 characters: " + pokemonNumber);
+    } else if(number.length == 5){
+      pokemonNumber = number.substring(0,5);
+      console.log("5 characters: " + pokemonNumber);
+    }  else if(number.length == 6){
+      pokemonNumber = number.substring(0,6);
+      console.log("6 characters: " + pokemonNumber);
+    }
+
+    this.setState({evolutionUrl: "/details/" + pokemonNumber});
+  },
   render: function(){
     return (
       <div className="container">
@@ -24,18 +98,37 @@ var Details = React.createClass({
           <div className="panel panel-default">
             <div className="row">
               <div className="col-sm-4" style={pictureBackground}>
-                <img src="img/bulb.png" alt="picture" style={pokemonPicture} />
+                <img src={this.state.imageUrl} alt="picture" style={pokemonPicture} />
               </div>
               <div className="col-sm-8">
                 <div style={container}>
-                  <h1>Bulbasuar <em>#001</em></h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique scelerisque lacinia. Aenean vel posuere felis. Pellentesque maximus accumsan tellus vitae tincidunt. Etiam lectus nunc, consequat eget nisl eget, maximus accumsan ex. Curabitur velit risus, condimentum ac nibh auctor, aliquam euismod sapien.</p>
+                  <div className="row">
+                    <div className="col-md-8">
+                      <h1>{this.state.pokemon.name}</h1>
+                    </div>
+                    <div className="col-md-4">
+                      <h1><em>#{this.state.pokemon.pkdx_id}</em></h1>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique scelerisque lacinia. Aenean vel posuere felis. Pellentesque maximus accumsan tellus vitae tincidunt. Etiam lectus nunc, consequat eget nisl eget, maximus accumsan ex. Curabitur velit risus, condimentum ac nibh auctor, aliquam euismod sapien.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <DetailCard />
+        <DetailCard
+          weight={this.state.pokemon.weight}
+          height={this.state.pokemon.height}
+          type={this.state.type}
+          attack={this.state.pokemon.attack}
+          defense={this.state.pokemon.defense}
+          evolution={this.state.evolution.to}
+          evolutionLink={this.state.evolutionUrl}
+        />
       </div>
     );
   }

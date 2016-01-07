@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
+var IndexRoute = ReactRouter.IndexRoute;
 
 var CreateHistory = require('history/lib/createHashHistory');
 
@@ -18,8 +19,8 @@ var History = new CreateHistory({
 var Routes = (
   <Router history={History}>
       <Route path="/" component={Base}>
-        <Route path="/main" component={Main} />
-        <Route path="/details" component={Details} />
+        <IndexRoute component={Main} />
+        <Route path="/details/:pokemonId" component={Details} />
       </Route>
   </Router>
 );

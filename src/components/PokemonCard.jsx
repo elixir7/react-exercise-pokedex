@@ -16,7 +16,7 @@ var pokemonIdText = {
 var PokemonCard = React.createClass({
   render: function(){
     return (
-      <Link to={`/details`}>
+      <Link to={"/details/" + this.props.link}>
         <div id="pokemon-card" className="col-sm-3">
           <div className="panel panel-default">
             <div className="panel-heading">
@@ -27,19 +27,7 @@ var PokemonCard = React.createClass({
               </div>
             </div>
             <div className="panel-body">
-              <div className="row">
-                <div className="col-xs-8">
-                  <h4>Pickachu</h4>
-                </div>
-                <div className="col-xs-4">
-                  <h4 style={pokemonIdText}><em>#145</em></h4>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-xs-6">
-                  <p>Water</p>
-                </div>
-              </div>
+              <h4>{this.props.name}</h4>
             </div>
           </div>
         </div>

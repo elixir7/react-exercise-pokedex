@@ -1,6 +1,7 @@
 //This is the navigation bar for all sites
 var React = require('react');
 var SearchBox = require('./SearchBox.jsx');
+var Link = require('react-router').Link;
 
 var navStyle = {
   backgroundColor: "tomato"
@@ -26,8 +27,10 @@ var Navbar = React.createClass({
       <div className="container-fluid" style={navStyle}>
         <div className="row" style={navPadding}>
           <div className="col-md-8">
-            <span style={brandText}>Pokédex</span>
-            <img src="img/ball.png" alt="pokemon picture" style={logo} />
+            <Link to="/">
+              <span style={brandText}>Pokédex</span>
+              <img src="img/ball.png" alt="pokemon picture" style={logo} />
+            </Link>
           </div>
           <div className="col-md-4">
             <SearchBox />
