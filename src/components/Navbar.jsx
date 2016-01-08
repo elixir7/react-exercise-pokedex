@@ -33,7 +33,7 @@ var Navbar = React.createClass({
             </Link>
           </div>
           <div className="col-md-4">
-            <SearchBox />
+            <SearchBox onNewSearch={this.handleSearch}/>
           </div>
         </div>
       </div>

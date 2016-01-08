@@ -19,13 +19,6 @@ var PokemonCard = React.createClass({
       <Link to={"/details/" + this.props.link}>
         <div id="pokemon-card" className="col-sm-3">
           <div className="panel panel-default">
-            <div className="panel-heading">
-              <div className="row">
-                <div className="col-xs-12">
-                  <img src="img/bulb.png" style={thumbStyle}/>
-                </div>
-              </div>
-            </div>
             <div className="panel-body">
               <h4>{this.props.name}</h4>
             </div>

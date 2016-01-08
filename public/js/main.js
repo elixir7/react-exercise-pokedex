@@ -25353,7 +25353,7 @@ var Navbar = React.createClass({
         React.createElement(
           'div',
           { className: 'col-md-4' },
-          React.createElement(SearchBox, null)
+          React.createElement(SearchBox, { onNewSearch: this.handleSearch })
         )
       )
     );
@@ -25393,19 +25393,6 @@ var PokemonCard = React.createClass({
           { className: 'panel panel-default' },
           React.createElement(
             'div',
-            { className: 'panel-heading' },
-            React.createElement(
-              'div',
-              { className: 'row' },
-              React.createElement(
-                'div',
-                { className: 'col-xs-12' },
-                React.createElement('img', { src: 'img/bulb.png', style: thumbStyle })
-              )
-            )
-          ),
-          React.createElement(
-            'div',
             { className: 'panel-body' },
             React.createElement(
               'h4',
@@ -25424,6 +25411,7 @@ module.exports = PokemonCard;
 },{"react":204,"react-router":71}],233:[function(require,module,exports){
 //Searchbox for searching pokemons by name or number
 var React = require('react');
+var Link = require('react-router').Link;
 
 var inputStyle = {
   width: "100%",
@@ -25431,24 +25419,38 @@ var inputStyle = {
 };
 
 var SearchBox = React.createClass({
-  displayName: "SearchBox",
+  displayName: 'SearchBox',
 
+  getInitialState: function () {
+    return { value: "" };
+  },
+  onChange: function (e) {
+    var search = e.target.value;
+    this.setState({ value: search });
+  },
+  onClick: function () {
+    this.setState({ value: "" });
+  },
   render: function () {
     return React.createElement(
-      "div",
-      { className: "row" },
+      'div',
+      { className: 'row' },
       React.createElement(
-        "div",
-        { className: "col-xs-9" },
-        React.createElement("input", { placeholder: "Search...", style: inputStyle })
+        'div',
+        { className: 'col-xs-9' },
+        React.createElement('input', { placeholder: 'Search...', onChange: this.onChange, value: this.state.value, style: inputStyle })
       ),
       React.createElement(
-        "div",
-        { className: "col-xs-3" },
+        'div',
+        { className: 'col-xs-3' },
         React.createElement(
-          "button",
-          { onClick: this.onClick },
-          "Go!"
+          Link,
+          { to: "/details/" + this.state.value },
+          React.createElement(
+            'button',
+            { onClick: this.onClick },
+            'Go!'
+          )
         )
       )
     );
@@ -25457,7 +25459,7 @@ var SearchBox = React.createClass({
 
 module.exports = SearchBox;
 
-},{"react":204}],234:[function(require,module,exports){
+},{"react":204,"react-router":71}],234:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
