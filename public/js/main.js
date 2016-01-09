@@ -25082,7 +25082,9 @@ var Details = React.createClass({
       spriteLink: "",
       sprite: [],
       imageUrl: "",
-      evolutionUrl: ""
+      evolutionUrl: "",
+      descriptions: [],
+      description: ""
     };
   },
   componentDidMount: function () {
@@ -25091,9 +25093,9 @@ var Details = React.createClass({
   componentWillReceiveProps: function (nextProps) {
     this.loadPokemon(nextProps.params.pokemonId);
   },
-  loadPokemon: function (number) {
-    console.log("number: " + number);
-    HTTP.get("/api/v1/pokemon/" + number).then((function (jsonData) {
+  loadPokemon: function (pokemon) {
+    console.log("pokemon: " + pokemon);
+    HTTP.get("/api/v1/pokemon/" + pokemon.toLowerCase()).then((function (jsonData) {
       console.log("Setting Specific Pokemon Data");
       this.setState({ pokemon: jsonData });
       console.log(this.state.pokemon);
@@ -25107,9 +25109,11 @@ var Details = React.createClass({
       this.setState({
         type: this.state.pokemon.types[0].name,
         evolution: evolution,
-        spriteLink: this.state.pokemon.sprites[0].resource_uri
+        spriteLink: this.state.pokemon.sprites[0].resource_uri,
+        descriptions: this.state.pokemon.descriptions
       });
       this.loadSprite(this.state.spriteLink);
+      this.loadDesc();
       this.evolution(this.state.evolution.resource_uri.substring(16));
     }).bind(this));
   },
@@ -25122,6 +25126,16 @@ var Details = React.createClass({
   },
   loadImage: function (imageUrl) {
     this.setState({ imageUrl: "http://pokeapi.co" + imageUrl });
+  },
+  loadDesc: function () {
+    var numb = this.state.descriptions.length;
+    console.log("length: " + numb);
+    var randNumb = Math.floor(Math.random() * numb + 1);
+    console.log("url: " + this.state.descriptions[randNumb].resource_uri);
+    HTTP.get(this.state.descriptions[randNumb].resource_uri).then((function (jsonData) {
+      console.log("Setting Description Data: " + jsonData.description);
+      this.setState({ description: jsonData.description });
+    }).bind(this));
   },
   evolution: function (number) {
     var pokemonNumber;
@@ -25204,7 +25218,7 @@ var Details = React.createClass({
                     React.createElement(
                       'p',
                       null,
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique scelerisque lacinia. Aenean vel posuere felis. Pellentesque maximus accumsan tellus vitae tincidunt. Etiam lectus nunc, consequat eget nisl eget, maximus accumsan ex. Curabitur velit risus, condimentum ac nibh auctor, aliquam euismod sapien.'
+                      this.state.description
                     )
                   )
                 )
